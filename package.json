@@ -1,7 +1,18 @@
 {
   "name": "vanilla-basic",
   "version": "1.0.0",
-  "scripts": { 
-    "start": "sirv ./src public --cors --single --no-clear --port 8000"
+  "scripts": {
+     "start": "sirv ./src public --cors --single --no-clear --port 8000",
+    "build:css": "postcss src/styles/tailwind.css -o public/styles.css"
+  },
+  "description": "[Azure Static Web Apps](https://docs.microsoft.com/azure/static-web-apps/overview) allows you to easily build JavaScript apps in minutes. Use this repo with the [quickstart](https://docs.microsoft.com/azure/static-web-apps/getting-started?tabs=vanilla-javascript) to build and customize a new static site.",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4"
   }
 }
