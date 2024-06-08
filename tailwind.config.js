@@ -1,7 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{html,js}" ,
-    "./CognitiveService/**/*.{html,js}"
+  content:[
+    './public/**/*.html',
+    './public/**/*.js',
   ],
   theme: {
     extend: {},
