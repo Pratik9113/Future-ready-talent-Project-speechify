@@ -35,19 +35,19 @@
             <div class="hidden w-full md:block md:w-auto" id="navbar-default">
                 <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                 <li>
-                    <a href="../src/home.html" class="block py-2 px-3 text-white rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Home</a>
+                    <a href="home.html" class="block py-2 px-3 text-white rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Home</a>
                 </li>
                 <li>
-                    <a href="../src/about.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
+                    <a href="about.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
                 </li>
                 <li>
-                    <a href="../src/service.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Services</a>
+                    <a href="service.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Services</a>
                 </li>
                 <li>
-                    <a href="../src/pricing.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Pricing</a>
+                    <a href="pricing.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Pricing</a>
                 </li>
                 <li>
-                    <a href="../src/contact.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
+                    <a href="contact.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
                 </li>
                 </ul>
             </div>
@@ -122,6 +122,71 @@
             </div>
         </section>
         <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
-    <script src="speechToText1.js"></script>
+    <script>
+        var phraseDiv;
+        var startRecognizeOnceAsyncButton;
+
+        const subscriptionKey = "862399594ebf4377b62ca443d4c488f6";
+        const serviceRegion = "eastus";
+        var languageTargetOptions, languageSourceOptions;
+        var SpeechSDK;
+        var recognizer;
+
+        document.addEventListener("DOMContentLoaded", function () {
+        startRecognizeOnceAsyncButton = document.getElementById("startRecognizeOnceAsyncButton");
+        languageTargetOptions = document.getElementById("languageTargetOptions");
+        languageSourceOptions = document.getElementById("languageSourceOptions");
+        phraseDiv = document.getElementById("phraseDiv");
+
+        startRecognizeOnceAsyncButton.addEventListener("click", function () {
+            startRecognizeOnceAsyncButton.disabled = true;
+            phraseDiv.innerHTML = "";
+
+            if (!subscriptionKey || !serviceRegion) {
+            alert("Subscription key or service region is missing!");
+            startRecognizeOnceAsyncButton.disabled = false;
+            return;
+            }
+            var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(subscriptionKey, serviceRegion);
+
+            speechConfig.speechRecognitionLanguage = languageSourceOptions.value;
+            let language = languageTargetOptions.value
+            speechConfig.addTargetLanguage(language)
+
+            var audioConfig  = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+            recognizer = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
+
+            recognizer.recognizeOnceAsync(
+            function (result) {
+                startRecognizeOnceAsyncButton.disabled = false;
+                if (result.reason === SpeechSDK.ResultReason.TranslatedSpeech) {
+                let translation = result.translations.get(language);
+                window.console.log(translation);
+                phraseDiv.innerHTML += translation;
+                }
+
+                recognizer.close();
+                recognizer = undefined;
+            },
+            function (err) {
+                startRecognizeOnceAsyncButton.disabled = false;
+                phraseDiv.innerHTML += err;
+                window.console.log(err);
+
+                recognizer.close();
+                recognizer = undefined;
+            });
+        });
+
+        if (!!window.SpeechSDK) {
+            SpeechSDK = window.SpeechSDK;
+            startRecognizeOnceAsyncButton.disabled = false;
+
+            document.getElementById('content').style.display = 'block';
+            document.getElementById('warning').style.display = 'none';
+        }
+    });
+
+    </script>
     </body>
     </html>

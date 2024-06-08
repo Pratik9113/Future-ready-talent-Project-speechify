@@ -23,19 +23,19 @@
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">
             <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
-                <a href="../src/home.html" class="block py-2 px-3 text-white rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Home</a>
+                <a href="home.html" class="block py-2 px-3 text-white rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Home</a>
             </li>
             <li>
-                <a href="../src/about.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
+                <a href="about.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
             </li>
             <li>
-                <a href="../src/service.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Services</a>
+                <a href="service.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Services</a>
             </li>
             <li>
-                <a href="../src/pricing.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Pricing</a>
+                <a href="pricing.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Pricing</a>
             </li>
             <li>
-                <a href="../src/contact.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
+                <a href="contact.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
             </li>
             </ul>
         </div>
@@ -69,7 +69,53 @@
     </section>
 
     <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
-    <script src="textToAudio.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+                
+        const subscriptionKey = "862399594ebf4377b62ca443d4c488f6";
+        const serviceRegion = "eastus"; // e.g., "westus"
+
+        // Function to convert text to speech
+        document.getElementById('convertButton').addEventListener('click', () => {
+            const text = document.getElementById('textInput').value;
+            const selectedLanguage = document.getElementById('languageSelect').value;
+            if (!text) {
+                alert('Please enter some text.');
+                return;
+            }
+
+            // Initialize the speech synthesizer
+            const speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKey, serviceRegion);
+            speechConfig.speechSynthesisLanguage = selectedLanguage;
+            const audioConfig = SpeechSDK.AudioConfig.fromDefaultSpeakerOutput();
+            const synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
+
+            // Synthesize the speech
+            synthesizer.speakTextAsync(
+                text,
+                result => {
+                    if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
+                        console.log("Synthesis finished.");
+                        // Get the audio data
+                        const audioData = result.audioData;
+                        const audioBlob = new Blob([audioData], { type: 'audio/wav' });
+                        const audioUrl = URL.createObjectURL(audioBlob);
+
+                        // Set the audio source
+                        const audioElement = document.getElementById('audioOutput');
+                        audioElement.src = audioUrl;
+                        // audioElement.play();
+                    } else {
+                        console.error("Speech synthesis canceled, " + result.errorDetails +
+                            "\nDid you update the subscription info?");
+                    }
+                    synthesizer.close();
+                },
+                err => {
+                    console.trace("Error: " + err);
+                    synthesizer.close();
+                });
+        });
+
+    </script>
 </body>
 </html>
