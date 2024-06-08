@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../public/output.css">
     <title>Document</title>
 </head>
 <body>
@@ -44,10 +43,20 @@
     <section class="bg-white dark:bg-gray-900">
         <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
             <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Text To Audio</h2>
-            <p class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Want to convert your Text in any Audio here it is </p>
+            <p class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Want to convert your Text to Audio? Here it is.</p>
             <div class="sm:col-span-2 mb-4">
                 <label for="textInput" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Text:</label>
                 <input type="text" id="textInput" class="block w-full mt-1 bg-slate-300 p-2 rounded" />
+            </div>
+            <div class="sm:col-span-2 mb-4">
+                <label for="languageSelect" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose a language:</label>
+                <select id="languageSelect" class="block w-full mt-1 bg-slate-300 p-2 rounded">
+                    <option value="en-US">English (United States)</option>
+                    <option value="es-ES">Spanish (Spain)</option>
+                    <option value="fr-FR">French (France)</option>
+                    <option value="de-DE">German (Germany)</option>
+                    
+                </select>
             </div>
             <div class="sm:col-span-2 mb-4">
                 <button id="convertButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Convert to Audio</button>
@@ -57,7 +66,9 @@
             </div>
         </div>
     </section>
+
     <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
     <script src="textToAudio.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </body>
 </html>
