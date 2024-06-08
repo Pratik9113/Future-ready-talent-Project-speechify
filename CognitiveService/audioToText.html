@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="output.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="../public/output.css">
+    <title>Audio To Text</title>
 </head>
 <body>
     <nav class="bg-white border-gray-200 dark:bg-gray-900">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="./assets/speechLogo.png" class="h-8" alt="speech logo" />
+            <img src="../assets/speechLogo.png" class="h-8" alt="speech logo" />
             <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Speechify</span>
         </a>
         <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
@@ -42,33 +42,23 @@
     </nav>
     <section class="bg-white dark:bg-gray-900">
         <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
-            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Text To Audio</h2>
-            <p class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Want to convert your Text to Audio? Here it is.</p>
+            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Audio To Text</h2>
+            <p class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Want to convert your Audio into Text? Here it is!</p>
             <div class="sm:col-span-2 mb-4">
-                <label for="textInput" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Text:</label>
-                <input type="text" id="textInput" class="block w-full mt-1 bg-slate-300 p-2 rounded" />
+                <label for="audioUpload" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Audio:</label>
+                <input type="file" id="audioUpload" accept="audio/*" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"/>
             </div>
             <div class="sm:col-span-2 mb-4">
-                <label for="languageSelect" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose a language:</label>
-                <select id="languageSelect" class="block w-full mt-1 bg-slate-300 p-2 rounded">
-                    <option value="en-US">English (United States)</option>
-                    <option value="es-ES">Spanish (Spain)</option>
-                    <option value="fr-FR">French (France)</option>
-                    <option value="de-DE">German (Germany)</option>
-                    
-                </select>
+                <button id="convertButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Convert to Text</button>
+                <p>wait for processing after clicking </p>
             </div>
-            <div class="sm:col-span-2 mb-4">
-                <button id="convertButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Convert to Audio</button>
-            </div>
-            <div class="sm:col-span-2">
-                <audio id="audioOutput" controls class="w-full mt-4"></audio>
+            <div>
+                <label for="phraseDiv" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Results:</label>
+                <textarea id="phraseDiv" class="bg-slate-300 block w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-not-allowed dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"></textarea>
             </div>
         </div>
     </section>
-
     <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
-    <script src="textToAudio.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="audioToText.js"></script>
 </body>
 </html>
