@@ -1,6 +1,6 @@
 node_modules/
 /test-results/
 .env
-src/SpeechToText.html
-src/textToAudio.html
-src/audioToText.html
+SpeechToText.html
+textToAudio.html
+audioToText.html
