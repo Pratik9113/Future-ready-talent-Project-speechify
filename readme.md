@@ -4,10 +4,10 @@
 **Speechify: Providing Translation, Audio Files, and More**
 
 ### Project Link:
-[Insert Project Link Here]
+[https://ashy-pond-07114da10.5.azurestaticapps.net/]
 
 ### Demo Video:
-[Insert Demo Video Link Here]
+[https://drive.google.com/file/d/1KDqhnO_R8TClXI9FloGVtbgeAG7bZI4G/view?usp=sharing]
 
 ### Technologies Used:
 **Web Technologies:** HTML, CSS, Tailwind CSS, JavaScript
