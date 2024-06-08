@@ -1,4 +1,6 @@
 node_modules/
 /test-results/
 .env
-CognitiveService/*.js
+src/SpeechToText.html
+src/textToAudio.html
+src/audioToText.html
