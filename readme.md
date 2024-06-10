@@ -33,9 +33,18 @@
 3. **Translation Services:** Translate text from one language to another, supporting seamless communication.
 
 ## Screenshots:
-![Speechify Home](image.png)
-![Speechify Features](image-1.png)
-![Speechify Interface](image-2.png)
+
+## Azure Static Web Service 
+![Azure Static web service](AzureStaticWebPage.png)
+
+
+## Azure Speech Service
+![Azure Speech service](AzureStaticWebPage.png)
+
+
+## Azure Speech View 
+![Azure Speech service](AzureSpeechView.png)
+
 
 ### Speech to Text:
 ![Speech to Text](image-3.png)
@@ -45,6 +54,12 @@
 
 ### Audio to Text:
 ![Audio to Text](image-5.png)
+
+
+
+![Speechify Home](image.png)
+![Speechify Features](image-1.png)
+![Speechify Interface](image-2.png)
 
 ## Conclusion:
 **Speechify** aims to enhance accessibility and communication by providing a reliable platform for speech and text translation. By integrating cutting-edge Azure technologies, it ensures users have access to fast, accurate, and user-friendly tools for all their translation needs.
